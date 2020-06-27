@@ -30,9 +30,9 @@ def astar_search(graph, heuristics, start, end):
         if current_node == goal_node:
             path = []
             while current_node != start_node:
-                path.append(current_node.name + ': ' + str(current_node.g))
+                path.append(current_node.name)
                 current_node = current_node.parent
-            path.append(start_node.name + ': ' + str(start_node.g))
+            path.append(start_node.name)
             # Return reversed path
             return path[::-1]
 

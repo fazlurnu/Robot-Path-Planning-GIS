@@ -1,11 +1,8 @@
-from math import *
-
 # This class represent a node
 class Node:
 
     # Initialize the class
-    def __init__(self, position, name, parent=None):
-        self.position = position
+    def __init__(self, name:str, parent:str):
         self.name = name
         self.parent = parent
 
@@ -15,18 +12,12 @@ class Node:
 
     # Compare nodes
     def __eq__(self, other):
-        return self.position == other.position
+        return self.name == other.name
 
     # Sort nodes
     def __lt__(self, other):
          return self.f < other.f
 
-    def distance(self, other):
-        dx = self.position[0] - other.position[0]
-        dy = self.position[1] - other.position[1]
-
-        return sqrt(dx**2 + dy**2)
-    
     # Print node
     def __repr__(self):
         return ('({0},{1})'.format(self.position, self.f))

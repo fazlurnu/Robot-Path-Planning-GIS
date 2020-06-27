@@ -1,4 +1,6 @@
+from astar import astar_search
 from Node import Node
+from Point import Point
 from Robot import Robot
 from Display import Display
 from Graph import Graph
@@ -10,35 +12,22 @@ import random
 def main():
 
     nodes = []
-    pos = [(100, 400), (350, 300), (350, 560), (500, 350), (500, 550), (650, 350)]
+    pos = [(100, 400), (350, 100), (350, 560), (500, 100), (500, 550), (650, 150)]
     
     for i, po in enumerate(pos):
         name = str(i)
-        nodes.append(Node(po, name))
+        nodes.append(Point(name, po))
 
-    #nodes = []
-    #for i in range(6):
-    #    x = random.randint(50, 700)
-    #    y = random.randint(50, 700)
-    #    position = (x,y)
-    #    name = str(i)
-    #    nodes.append(Node(position, name))
+    start = nodes[0]
+    end = nodes[len(nodes)-1]
 
-    start = nodes[0].position
-    end = nodes[len(nodes)-1].position
-
-    edges = [(nodes[0], nodes[1]), (nodes[0], nodes[2]), (nodes[1], nodes[3]), (nodes[2], nodes[3]),
-             (nodes[2], nodes[4]), (nodes[3], nodes[5]), (nodes[4], nodes[5])]
+    edges = [(nodes[0], nodes[1]), (nodes[0], nodes[2]), (nodes[1], nodes[3]), (nodes[1], nodes[4]),
+             (nodes[2], nodes[3]), (nodes[2], nodes[4]), (nodes[3], nodes[5]), (nodes[4], nodes[5])]
 
     graph = Graph()
 
-    graph.connect(nodes[0].name, nodes[1].name, nodes[0].distance(nodes[1]))
-    graph.connect(nodes[0].name, nodes[2].name, nodes[0].distance(nodes[2]))
-    graph.connect(nodes[1].name, nodes[3].name, nodes[1].distance(nodes[3]))
-    graph.connect(nodes[2].name, nodes[3].name, nodes[2].distance(nodes[3]))
-    graph.connect(nodes[2].name, nodes[4].name, nodes[2].distance(nodes[4]))
-    graph.connect(nodes[3].name, nodes[5].name, nodes[3].distance(nodes[5]))
-    graph.connect(nodes[4].name, nodes[5].name, nodes[4].distance(nodes[5]))
+    for edge in edges:
+        graph.connect(edge[0].name, edge[1].name, edge[0].distance(edge[1]))
 
     # Make graph undirected, create symmetric connections
     graph.make_undirected()
@@ -46,16 +35,19 @@ def main():
     # Create heuristics (straight-line distance, air-travel distance)
     heuristics = {}
     for node in nodes:
-        heuristics[node.name] = node.distance(nodes[0])
+        heuristics[node.name] = node.distance(end)
 
     # Run the search algorithm
-    path = astar_search(graph, heuristics, 'Frankfurt', 'Salzburg')
+    path = astar_search(graph, heuristics, start.name, end.name)
 
-    print(heuristics)
+    print(path)
     
-    robot = Robot(position = [start[0],start[1]], heading = math.pi)
+    robot = Robot(position = [start.position[0],start.position[1]], heading = math.pi)
 
-    route = [nodes[0], nodes[1], nodes[3], nodes[5]]
+    route = []
+    for node in path:
+        index = int(node)
+        route.append(nodes[index])    
 
     display = Display(robot, nodes, edges, route)
 

@@ -69,6 +69,14 @@ class Display:
         for edge in edges:
             pygame.draw.line(self.screen, BLACK, edge[0].position, edge[1].position, 5)
 
+    def draw_route(self, nodes, route):
+        for i in range(len(route)-1):
+            start_index = int(route[i].name)
+            end_index = int(route[i+1].name)
+            start = nodes[start_index]
+            end = nodes[end_index]
+            pygame.draw.line(self.screen, RED, start.position, end.position, 5)
+
     def display(self, robot, nodes, edges, route):
         node_reached = 0
         total_target = len(route)-1
@@ -99,6 +107,7 @@ class Display:
 
             self.screen.fill(WHITE)
             self.draw_edges(edges)
+            self.draw_route(nodes, route)
             self.draw_nodes(nodes)
             self.draw_robot(robot)
 

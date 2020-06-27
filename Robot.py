@@ -33,7 +33,7 @@ class Robot:
         if(self.heading_target<0):
             self.heading_target += 2*pi
         #self.heading_target = atan(dy/dx)
-        print("Set robot goal at: " + str(goal) + ", direction: " + str(self.heading_target))
+        #print("Set robot goal at: " + str(goal) + ", direction: " + str(self.heading_target))
 
     def control(self, kp_ang):
 
