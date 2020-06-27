@@ -1,3 +1,5 @@
+from math import *
+
 # This class represent a node
 class Node:
 
@@ -18,6 +20,11 @@ class Node:
     def __lt__(self, other):
          return self.f < other.f
 
+    def distance(self, other):
+        dx = self.position[0] - other.position[0]
+        dy = self.position[1] - other.position[1]
+
+        return sqrt(dx**2 + dy**2)
     # Print node
     #def __repr__(self):
     #    return ('({0},{1})'.format(self.position, self.f))
