@@ -8,18 +8,22 @@ BLACK=(0,0,0)
 RED=(255, 0, 0)
 GREEN=(0,255,0)
 BLUE=(0,0,255)
+YELLOW = (255, 255, 0)
 
 FRAMES_PER_SECOND = 30
 
 class Display:
 
-    def __init__(self, robot, nodes, edges):
+    def __init__(self, robot, nodes, edges, route):
 
         self.height = 1000
         self.width = 1000
 
         caption = 'Python Code for Robot Command'
         pygame.init()
+        
+        self.font = pygame.font.Font('FreeSansBold.ttf', 20)
+
         print("Initialize PyGame Display, Caption: " + caption + ", size: " + str(self.width) + "x" + str(self.height))
         pygame.display.set_caption(caption)
         self.screen = pygame.display.set_mode((self.width, self.height))
@@ -28,7 +32,7 @@ class Display:
 
         border_width = 5
 
-        self.display(robot, nodes, edges)
+        self.display(robot, nodes, edges, route)
 
     def draw_robot(self, robot):
         radius = 20
@@ -46,15 +50,28 @@ class Display:
 
     def draw_nodes(self, nodes):
         for node in nodes:
-            pygame.draw.circle(self.screen, GREEN, node.position, 10)
+            
+            if (node.name == '0'):
+                color = YELLOW
+            elif (node.name == str(len(nodes)-1)):
+                color = RED
+            else:
+                color = GREEN
+
+            pygame.draw.circle(self.screen, color, node.position, 15)
+            text = self.font.render(node.name, True, BLACK, color)
+            textRect = text.get_rect()  
+            textRect.center = node.position
+
+            self.screen.blit(text, textRect) 
 
     def draw_edges(self, edges):
         for edge in edges:
             pygame.draw.line(self.screen, BLACK, edge[0].position, edge[1].position, 5)
 
-    def display(self, robot, nodes, edges):
+    def display(self, robot, nodes, edges, route):
         node_reached = 0
-        total_target = len(nodes)-1
+        total_target = len(route)-1
 
         done = False
 
@@ -65,11 +82,11 @@ class Display:
                     pygame.quit()
                     sys.exit()
 
-            robot.set_goal(nodes[node_reached+1].position)
+            robot.set_goal(route[node_reached+1].position)
 
             if not robot.is_directed():
                 robot.rotate(0.05)
-                print(robot.heading)
+                #print(robot.heading)
             else:
                 if (robot.is_at_goal()):
                     robot.translate(0)
@@ -81,8 +98,8 @@ class Display:
                 done = True
 
             self.screen.fill(WHITE)
-            self.draw_nodes(nodes)
             self.draw_edges(edges)
+            self.draw_nodes(nodes)
             self.draw_robot(robot)
 
             #clock.tick(FRAMES_PER_SECOND)
