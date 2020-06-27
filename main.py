@@ -7,14 +7,17 @@ import math
 # The main entry point for this module
 def main():
 
-    nodes = []
-    for i in range(4):
-        for j in range(4):
-            position = (i,j)
-            nodes.append(Node(position))
+    start = (200, 300)
+    end = (800, 750)
 
-    robot = Robot(position = [50,50])
-    display = Display(robot)
+    nodes = []
+    nodes.append(Node(start))
+    nodes.append(Node(end))
+
+    robot = Robot(position = [start[0],start[1]], heading = 0)
+    robot.set_goal(end)
+
+    display = Display(robot, nodes)
 
 # Tell python to run main method
 if __name__ == "__main__":
