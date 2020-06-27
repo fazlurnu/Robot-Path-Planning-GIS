@@ -68,7 +68,7 @@ class Display:
             robot.set_goal(nodes[node_reached+1].position)
 
             if not robot.is_directed():
-                robot.rotate(0.1)
+                robot.rotate(0.05)
                 print(robot.heading_difference())
             else:
                 if (robot.is_at_goal()):
@@ -79,7 +79,7 @@ class Display:
 
             if (node_reached==total_target):
                 done = True
-                
+
             self.screen.fill(WHITE)
             self.draw_nodes(nodes)
             self.draw_edges(edges)

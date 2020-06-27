@@ -28,7 +28,7 @@ class Robot:
         dx = self.goal[0] - self.position[0]
         dy = self.goal[1] - self.position[1]
 
-        self.heading_target = atan(dy/dx)
+        self.heading_target = atan2(dy, dx)
         print("Set robot goal at: " + str(goal) + ", direction: " + str(self.heading_target))
 
     def control(self, kp_ang):
