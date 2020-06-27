@@ -12,6 +12,9 @@ class Robot:
 
     def rotate(self, ang_x):
 
+        if(self.heading>2*pi):
+            self.heading=0
+
         self.heading += ang_x * self.dt
 
     def translate(self, vel):
@@ -28,16 +31,16 @@ class Robot:
         self.heading_target = atan(dy/dx)
         print("Set robot goal at: " + str(goal) + ", direction: " + str(self.heading_target))
 
-    def control(self):
+    def control(self, kp_ang):
 
         if(self.heading != self.heading_target):
             heading_diff = self.heading_target - self.heading
 
-            self.rotate = (heading_diff)
+            self.rotate = (heading_diff * kp_ang)
 
     def is_directed(self):
         tolerance = 0.01
-        heading_diff = self.heading_target - self.heading
+        heading_diff = self.heading_difference()
 
         if (heading_diff < tolerance and heading_diff > -tolerance):
             return True
@@ -48,6 +51,9 @@ class Robot:
         if (self.distance_to_goal() < self.tolerance):
             return True
         else: return False
+
+    def heading_difference(self):
+        return self.heading_target - self.heading
 
     def distance_to_goal(self):
         dx = self.goal[0] - self.position[0]

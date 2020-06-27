@@ -9,15 +9,17 @@ def main():
 
     start = (200, 300)
     end = (800, 750)
+    pos1 = (500, 400)
 
     nodes = []
     nodes.append(Node(start))
+    nodes.append(Node(pos1))
     nodes.append(Node(end))
 
-    robot = Robot(position = [start[0],start[1]], heading = 0)
-    robot.set_goal(end)
+    edges = [(nodes[0], nodes[1]), (nodes[1], nodes[2])]
+    robot = Robot(position = [start[0],start[1]], heading = math.pi)
 
-    display = Display(robot, nodes)
+    display = Display(robot, nodes, edges)
 
 # Tell python to run main method
 if __name__ == "__main__":

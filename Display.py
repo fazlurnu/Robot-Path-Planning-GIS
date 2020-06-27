@@ -13,7 +13,7 @@ FRAMES_PER_SECOND = 30
 
 class Display:
 
-    def __init__(self, robot, nodes):
+    def __init__(self, robot, nodes, edges):
 
         self.height = 1000
         self.width = 1000
@@ -28,7 +28,7 @@ class Display:
 
         border_width = 5
 
-        self.display(robot, nodes)
+        self.display(robot, nodes, edges)
 
     def draw_robot(self, robot):
         radius = 20
@@ -48,26 +48,41 @@ class Display:
         for node in nodes:
             pygame.draw.circle(self.screen, GREEN, node.position, 10)
 
-    def display(self, robot, nodes):
-        while True:
+    def draw_edges(self, edges):
+        for edge in edges:
+            pygame.draw.line(self.screen, BLACK, edge[0].position, edge[1].position, 5)
+
+    def display(self, robot, nodes, edges):
+        node_reached = 0
+        total_target = len(nodes)-1
+
+        done = False
+
+        while not done:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: # If user clicked close
+                    done = True
                     pygame.quit()
                     sys.exit()
 
-            velo = 1
-            
+            robot.set_goal(nodes[node_reached+1].position)
+
             if not robot.is_directed():
                 robot.rotate(0.1)
+                print(robot.heading_difference())
             else:
                 if (robot.is_at_goal()):
                     robot.translate(0)
+                    node_reached+=1
                 else:
-                    print(robot.distance_to_goal())
                     robot.translate(2)
 
+            if (node_reached==total_target):
+                done = True
+                
             self.screen.fill(WHITE)
             self.draw_nodes(nodes)
+            self.draw_edges(edges)
             self.draw_robot(robot)
 
             #clock.tick(FRAMES_PER_SECOND)
