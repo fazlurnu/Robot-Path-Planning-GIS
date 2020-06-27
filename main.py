@@ -12,8 +12,15 @@ import random
 def main():
 
     nodes = []
-    pos = [(100, 400), (350, 100), (350, 560), (500, 100), (500, 550), (650, 150)]
+    #pos = [(100, 400), (350, 100), (350, 560), (500, 100), (500, 550), (650, 400)]
     
+    nb_of_nodes = 20
+    pos = []
+    for i in range(nb_of_nodes):
+        x = random.randint(50, 700)
+        y = random.randint(50, 700)
+        pos.append((x,y))
+
     for i, po in enumerate(pos):
         name = str(i)
         nodes.append(Point(name, po))
@@ -21,8 +28,16 @@ def main():
     start = nodes[0]
     end = nodes[len(nodes)-1]
 
-    edges = [(nodes[0], nodes[1]), (nodes[0], nodes[2]), (nodes[1], nodes[3]), (nodes[1], nodes[4]),
-             (nodes[2], nodes[3]), (nodes[2], nodes[4]), (nodes[3], nodes[5]), (nodes[4], nodes[5])]
+    p = 0.1
+    edges = []
+    for i in range(len(nodes)):
+        for j in range(len(nodes)):
+            
+            if (random.uniform(0,1)<p):
+                edges.append((nodes[i], nodes[j]))
+
+    #edges = [(nodes[0], nodes[1]), (nodes[0], nodes[2]), (nodes[1], nodes[3]), (nodes[1], nodes[4]),
+    #         (nodes[2], nodes[3]), (nodes[2], nodes[4]), (nodes[3], nodes[5]), (nodes[4], nodes[5])]
 
     graph = Graph()
 
