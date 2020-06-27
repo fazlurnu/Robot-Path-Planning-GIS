@@ -13,7 +13,7 @@ def main():
             position = (i,j)
             nodes.append(Node(position))
 
-    robot = Robot((50,50))
+    robot = Robot(position = [50,50])
     display = Display(robot)
 
 # Tell python to run main method
