@@ -40,8 +40,18 @@ def main():
     graph.connect(nodes[3].name, nodes[5].name, nodes[3].distance(nodes[5]))
     graph.connect(nodes[4].name, nodes[5].name, nodes[4].distance(nodes[5]))
 
-    print(graph.nodes())
+    # Make graph undirected, create symmetric connections
+    graph.make_undirected()
 
+    # Create heuristics (straight-line distance, air-travel distance)
+    heuristics = {}
+    for node in nodes:
+        heuristics[node.name] = node.distance(nodes[0])
+
+    # Run the search algorithm
+    path = astar_search(graph, heuristics, 'Frankfurt', 'Salzburg')
+
+    print(heuristics)
     
     robot = Robot(position = [start[0],start[1]], heading = math.pi)
 
