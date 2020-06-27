@@ -4,8 +4,9 @@ from math import *
 class Node:
 
     # Initialize the class
-    def __init__(self, position, parent=None):
+    def __init__(self, position, name, parent=None):
         self.position = position
+        self.name = name
         self.parent = parent
 
         self.g = 0 # Distance to start node
