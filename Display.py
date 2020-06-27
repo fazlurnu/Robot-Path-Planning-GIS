@@ -69,7 +69,7 @@ class Display:
 
             if not robot.is_directed():
                 robot.rotate(0.05)
-                print(robot.heading_difference())
+                print(robot.heading)
             else:
                 if (robot.is_at_goal()):
                     robot.translate(0)

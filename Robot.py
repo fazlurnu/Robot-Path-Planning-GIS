@@ -12,7 +12,7 @@ class Robot:
 
     def rotate(self, ang_x):
 
-        if(self.heading>2*pi):
+        if(self.heading>2*pi or self.heading < -2*pi):
             self.heading=0
 
         self.heading += ang_x * self.dt
@@ -29,6 +29,10 @@ class Robot:
         dy = self.goal[1] - self.position[1]
 
         self.heading_target = atan2(dy, dx)
+
+        if(self.heading_target<0):
+            self.heading_target += 2*pi
+        #self.heading_target = atan(dy/dx)
         print("Set robot goal at: " + str(goal) + ", direction: " + str(self.heading_target))
 
     def control(self, kp_ang):

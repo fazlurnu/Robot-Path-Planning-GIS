@@ -3,6 +3,7 @@ from Robot import Robot
 from Display import Display
 
 import math
+import random
 
 # The main entry point for this module
 def main():
@@ -13,10 +14,15 @@ def main():
     pos2 = (300, 600)
 
     nodes = []
-    nodes.append(Node(start))
-    nodes.append(Node(pos1))
-    nodes.append(Node(pos2))
-    nodes.append(Node(end))
+    for i in range(4):
+        x = random.randint(50, 700)
+        y = random.randint(50, 700)
+        position = (x,y)
+        nodes.append(Node(position))
+
+    start = nodes[0].position
+    end = nodes[len(nodes)-1].position
+    print(nodes[0].position)
 
     edges = [(nodes[0], nodes[1]), (nodes[1], nodes[2]), (nodes[2], nodes[3])]
     robot = Robot(position = [start[0],start[1]], heading = math.pi)
