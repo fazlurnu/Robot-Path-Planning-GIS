@@ -26,6 +26,7 @@ class Node:
         dy = self.position[1] - other.position[1]
 
         return sqrt(dx**2 + dy**2)
+    
     # Print node
-    #def __repr__(self):
-    #    return ('({0},{1})'.format(self.position, self.f))
+    def __repr__(self):
+        return ('({0},{1})'.format(self.position, self.f))
