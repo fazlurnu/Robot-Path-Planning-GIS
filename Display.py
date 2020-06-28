@@ -78,6 +78,8 @@ class Display:
             pygame.draw.line(self.screen, RED, start.position, end.position, 5)
 
     def display(self, robot, nodes, edges, route):
+        
+        #waypoint following initialization
         node_reached = 0
         total_target = len(route)-1
 
@@ -90,6 +92,7 @@ class Display:
                     pygame.quit()
                     sys.exit()
 
+            # robot control
             robot.set_goal(route[node_reached+1].position)
 
             if not robot.is_directed():
@@ -105,12 +108,16 @@ class Display:
             if (node_reached==total_target):
                 done = True
 
+            # end of robot control
+
+            #visualization
+
             self.screen.fill(WHITE)
             self.draw_edges(edges)
             self.draw_route(nodes, route)
             self.draw_nodes(nodes)
             self.draw_robot(robot)
 
-            #clock.tick(FRAMES_PER_SECOND)
+            #end of visualization
             
             pygame.display.update()

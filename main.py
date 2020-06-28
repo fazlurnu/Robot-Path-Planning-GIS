@@ -11,9 +11,10 @@ import random
 # The main entry point for this module
 def main():
 
-    nodes = []
+    # uncomment below to define coordinates
     #pos = [(100, 400), (350, 100), (350, 560), (500, 100), (500, 550), (650, 400)]
     
+    # randomize coordinate
     nb_of_nodes = 45
     pos = []
     for i in range(nb_of_nodes):
@@ -21,6 +22,8 @@ def main():
         y = random.randint(50, 700)
         pos.append((x,y))
 
+    # create list of coordinate inside nodes
+    nodes = []
     for i, po in enumerate(pos):
         name = str(i)
         nodes.append(Point(name, po))
@@ -28,16 +31,17 @@ def main():
     start = nodes[0]
     end = nodes[len(nodes)-1]
 
+    # uncomment below to define edges (connection between nodes)
+    #edges = [(nodes[0], nodes[1]), (nodes[0], nodes[2]), (nodes[1], nodes[3]), (nodes[1], nodes[4]),
+    #         (nodes[2], nodes[3]), (nodes[2], nodes[4]), (nodes[3], nodes[5]), (nodes[4], nodes[5])]
+
+    #create edges randomly
     p = 0.2
     edges = []
     for i in range(len(nodes)):
         for j in range(i, len(nodes)):
-            
             if (random.uniform(0,5)<p):
                 edges.append((nodes[i], nodes[j]))
-
-    #edges = [(nodes[0], nodes[1]), (nodes[0], nodes[2]), (nodes[1], nodes[3]), (nodes[1], nodes[4]),
-    #         (nodes[2], nodes[3]), (nodes[2], nodes[4]), (nodes[3], nodes[5]), (nodes[4], nodes[5])]
 
     graph = Graph()
 
