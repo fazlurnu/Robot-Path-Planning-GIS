@@ -43,6 +43,7 @@ def main():
             if (random.uniform(0,5)<p):
                 edges.append((nodes[i], nodes[j]))
 
+    #create graph
     graph = Graph()
 
     for edge in edges:

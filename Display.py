@@ -96,13 +96,19 @@ class Display:
             robot.set_goal(route[node_reached+1].position)
 
             if not robot.is_directed():
+                # set rotation speed
                 robot.rotate(0.05)
                 #print(robot.heading)
             else:
                 if (robot.is_at_goal()):
+                    # stop when goal is reached
+                    # set robot speed equals to 0
                     robot.translate(0)
+
+                    # go to next node
                     node_reached+=1
                 else:
+                    # set robot speed equals to 2
                     robot.translate(2)
 
             if (node_reached==total_target):
