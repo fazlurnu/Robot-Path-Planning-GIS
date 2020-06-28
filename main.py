@@ -14,7 +14,7 @@ def main():
     nodes = []
     #pos = [(100, 400), (350, 100), (350, 560), (500, 100), (500, 550), (650, 400)]
     
-    nb_of_nodes = 20
+    nb_of_nodes = 45
     pos = []
     for i in range(nb_of_nodes):
         x = random.randint(50, 700)
@@ -28,12 +28,12 @@ def main():
     start = nodes[0]
     end = nodes[len(nodes)-1]
 
-    p = 0.1
+    p = 0.2
     edges = []
     for i in range(len(nodes)):
-        for j in range(len(nodes)):
+        for j in range(i, len(nodes)):
             
-            if (random.uniform(0,1)<p):
+            if (random.uniform(0,5)<p):
                 edges.append((nodes[i], nodes[j]))
 
     #edges = [(nodes[0], nodes[1]), (nodes[0], nodes[2]), (nodes[1], nodes[3]), (nodes[1], nodes[4]),
@@ -55,16 +55,18 @@ def main():
     # Run the search algorithm
     path = astar_search(graph, heuristics, start.name, end.name)
 
-    print(path)
-    
     robot = Robot(position = [start.position[0],start.position[1]], heading = math.pi)
+    
+    if path is not None:
 
-    route = []
-    for node in path:
-        index = int(node)
-        route.append(nodes[index])    
+        route = []
+        for node in path:
+            index = int(node)
+            route.append(nodes[index])    
 
-    display = Display(robot, nodes, edges, route)
+        display = Display(robot, nodes, edges, route)
+    else:
+        print("Can't find route")
 
 # Tell python to run main method
 if __name__ == "__main__":
