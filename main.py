@@ -18,8 +18,8 @@ def main():
     nb_of_nodes = 45
     pos = []
     for i in range(nb_of_nodes):
-        x = random.randint(50, 700)
-        y = random.randint(50, 700)
+        x = random.randint(0, 1000)
+        y = random.randint(0, 1000)
         pos.append((x,y))
 
     # create list of coordinate inside nodes
