@@ -15,7 +15,7 @@ def main():
     #pos = [(100, 400), (350, 100), (350, 560), (500, 100), (500, 550), (650, 400)]
     
     # randomize coordinate
-    nb_of_nodes = 45
+    nb_of_nodes = 30
     pos = []
     for i in range(nb_of_nodes):
         x = random.randint(0, 1000)
@@ -36,7 +36,7 @@ def main():
     #         (nodes[2], nodes[3]), (nodes[2], nodes[4]), (nodes[3], nodes[5]), (nodes[4], nodes[5])]
 
     #create edges randomly
-    p = 0.2
+    p = 0.3
     edges = []
     for i in range(len(nodes)):
         for j in range(i, len(nodes)):
